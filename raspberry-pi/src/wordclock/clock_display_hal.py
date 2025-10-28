@@ -1,8 +1,7 @@
 import board
 import neopixel
 
-
-
+"""
 IT IS ONE OCLOCK
 IT IS FIFTEEN PAST THREE
 IT IS TWENTY TO NINE
@@ -24,9 +23,6 @@ IL EST DIX HEURES MOINS DIX
 IL EST MINUIT
 IL EST MIDI
 
-
-
-"""
 LISTE MOTS :
 _IL 
 _EST 
@@ -83,6 +79,7 @@ class ClockDisplayHAL:
     WIDTH = 12
     HEIGHT = 11
     NUM_LEDS = WIDTH * HEIGHT
+    xx = 0
 
     WORDS_TO_LEDS = {
         "DEMI": (xx, xx),
@@ -93,7 +90,7 @@ class ClockDisplayHAL:
         "ET": (xx, xx),
         "LE": (xx, xx),
         "MOINS": (xx, xx),
-        "PILE": (xx, xx5),
+        "PILE": (xx, xx),
         "HEURE": (xx, xx),
         "HEURES": (xx, xx),
         "HEURE_1": (xx, xx),
