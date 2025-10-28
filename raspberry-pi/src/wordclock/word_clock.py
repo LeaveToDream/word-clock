@@ -28,29 +28,29 @@ class WordClock:
 
     def get_minutes_word(self, minute):
         if minute < 5:
-            return "OCLOCK"
+            return "PILE"
         elif minute < 10:
-            return "FIVE"
+            return "CINQ"
         elif minute < 15:
-            return "TEN"
+            return "DIX"
         elif minute < 20:
-            return "FIFTEEN"
+            return "QUINZE"
         elif minute < 25:
-            return "TWENTY"
+            return "VINGT"
         elif minute < 30:
-            return "TWENTYFIVE"
+            return "VINGTCINQ"
         elif minute < 35:
-            return "THIRTY"
+            return "TRENTE"
         elif minute < 40:
-            return "TWENTYFIVE"
+            return "VINGTCINQ"
         elif minute < 45:
-            return "TWENTY"
+            return "VINGT"
         elif minute < 50:
-            return "FIFTEEN"
+            return "QUINZE"
         elif minute < 55:
-            return "TEN"
+            return "DIX"
         else:
-            return "FIVE"
+            return "CINQ"
 
     def get_random_color(self):
         return random.choice(WordClock.COLORS)
@@ -66,13 +66,13 @@ class WordClock:
                 self.clock_display_hal.clear_pixels(show=False)
                 self.last_hour = hour
 
-        self.highlight_word("IT", self.get_random_color())
-        self.highlight_word("IS", self.get_random_color())
-        all_highlighted_words = "ITIS"
+        self.highlight_word("IL", self.get_random_color())
+        self.highlight_word("EST", self.get_random_color())
+        all_highlighted_words = "ILEST"
 
         if minute < 5:
-            self.highlight_word("OCLOCK", self.get_random_color())
-            all_highlighted_words = "OCLOCK"
+            self.highlight_word("PILE", self.get_random_color())
+            all_highlighted_words = "PILE"
         elif minute < 35:
             self.highlight_word("PAST", self.get_random_color())
             all_highlighted_words += "PAST"
