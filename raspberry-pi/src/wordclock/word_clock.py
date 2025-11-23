@@ -25,39 +25,17 @@ class WordClock:
     def highlight_word(self, word, color=(255, 255, 255)):
         if word in ClockDisplayHAL.WORDS_TO_LEDS:
             self.clock_display_hal.display_word(word, color)
-
-    def get_minutes_word(self, minute):
-        if minute < 5:
-            return "PILE"
-        elif minute < 10:
-            return "CINQ"
-        elif minute < 15:
-            return "DIX"
-        elif minute < 20:
-            return "QUINZE"
-        elif minute < 25:
-            return "VINGT"
-        elif minute < 30:
-            return "VINGTCINQ"
-        elif minute < 35:
-            return "TRENTE"
-        elif minute < 40:
-            return "VINGTCINQ"
-        elif minute < 45:
-            return "VINGT"
-        elif minute < 50:
-            return "QUINZE"
-        elif minute < 55:
-            return "DIX"
-        else:
-            return "CINQ"
-
+        
     def get_random_color(self):
         return random.choice(WordClock.COLORS)
 
+    def add_highlighted_word(self, word):
+        self.highlight_word(word, self.get_random_color())
+        self.all_last_highlighted_words += word
+
     def display_time(self):
         now = datetime.now()
-        hour = now.hour % 12 or 12  # Ensure hour is 1-12
+        hour = now.hour
         minute = now.minute
         self.clock_display_hal.clear_pixels(show=False)
         if hour != self.last_hour and self.gif_path:
@@ -66,31 +44,75 @@ class WordClock:
                 self.clock_display_hal.clear_pixels(show=False)
                 self.last_hour = hour
 
-        self.highlight_word("IL", self.get_random_color())
-        self.highlight_word("EST", self.get_random_color())
+        self.add_highlighted_word("IL")
+        self.add_highlighted_word("EST")
         all_highlighted_words = "ILEST"
 
-        if minute < 5:
-            self.highlight_word("PILE", self.get_random_color())
-            all_highlighted_words = "PILE"
-        elif minute < 35:
-            self.highlight_word("PAST", self.get_random_color())
-            all_highlighted_words += "PAST"
-            self.highlight_word("MINUTES", self.get_random_color())
-            all_highlighted_words += "MINUTES"
+        # Handle hours
+        if hour == 0 :
+            self.add_highlighted_word("MINUIT")
+            all_highlighted_words += "MINUIT"
+        elif hour == 12:
+            self.add_highlighted_word("MIDI")
+            all_highlighted_words += "MIDI"
         else:
-            self.highlight_word("TO", self.get_random_color())
-            all_highlighted_words += "TO"
-            self.highlight_word("MINUTES", self.get_random_color())
-            all_highlighted_words += "MINUTES"
-            hour = (hour + 1) % 12 or 12  # Adjust hour for "to" display
+            hour = now.hour % 12
+            self.add_highlighted_word(f"HEURE_{hour}")
+            all_highlighted_words += f"HEURE_{hour}"
 
-        hour_word = f"HOUR_{hour}"
-        self.highlight_word(self.get_minutes_word(minute), self.get_random_color())
-        all_highlighted_words += self.get_minutes_word(minute)
-        self.highlight_word(hour_word, self.get_random_color())
-        all_highlighted_words += hour_word
+            h = "HEURES" if hour != 1 else "HEURE"
+            self.add_highlighted_word(h)
+            all_highlighted_words += h
 
+
+        # Handle minutes
+        if minute < 5:
+            self.add_highlighted_word("PILE")
+            all_highlighted_words += "PILE"
+        elif minute < 10:
+            self.add_highlighted_word("CINQ")
+            all_highlighted_words += "CINQ"
+        elif minute < 15:
+            self.add_highlighted_word("DIX")
+            all_highlighted_words += "DIX"
+        elif minute < 20:
+            self.add_highlighted_word("ET")
+            self.add_highlighted_word("QUART")
+            all_highlighted_words += "ETQUART"
+        elif minute < 25:
+            self.add_highlighted_word("VINGT")
+            all_highlighted_words += "VINGT"
+        elif minute < 30:
+            self.add_highlighted_word("VINGTCINQ")
+            all_highlighted_words += "VINGTCINQ"
+        elif minute < 35:
+            self.add_highlighted_word("ET")
+            self.add_highlighted_word("DEMI")
+            all_highlighted_words += "ETDEMI"
+        elif minute < 40:
+            self.add_highlighted_word("MOINS")
+            self.add_highlighted_word("VINGT")
+            self.add_highlighted_word("CINQ")
+            all_highlighted_words += "MOINSVINGTCINQ"
+        elif minute < 45:
+            self.add_highlighted_word("MOINS")
+            self.add_highlighted_word("VINGT")
+            all_highlighted_words += "MOINSVINGT"
+        elif minute < 50:
+            self.add_highlighted_word("MOINS")
+            self.add_highlighted_word("LE")
+            self.add_highlighted_word("QUART")
+            all_highlighted_words += "MOINSLEQUART"
+        elif minute < 55:
+            self.add_highlighted_word("MOINS")
+            self.add_highlighted_word("DIX")
+            all_highlighted_words += "MOINSDIX"
+        else:
+            self.add_highlighted_word("MOINS")
+            self.add_highlighted_word("CINQ")
+            all_highlighted_words += "MOINSCINQ"
+
+        # Update display only if there are changes
         if self.all_last_highlighted_words != all_highlighted_words:
             self.clock_display_hal.show()
             self.all_last_highlighted_words = all_highlighted_words

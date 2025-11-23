@@ -2,36 +2,7 @@ import board
 import neopixel
 
 """
-IT IS ONE OCLOCK
-IT IS FIFTEEN PAST THREE
-IT IS TWENTY TO NINE
-
-
-IL EST UNE HEURE PILE
-IL EST TROIS HEURES CINQ
-IL EST TROIS HEURES DIX
-IL EST TROIS HEURES ET QUART
-IL EST TROIS HEURES VINGT
-IL EST TROIS HEURES VINGT CINQ
-IL EST TROIS HEURES ET DEMIE
-IL EST TROIS HEURES TRENTE CINQ
-IL EST TROIS HEURES MOINS VINGT
-IL EST TROIS HEURES MOINS LE QUART
-IL EST TROIS HEURES MOINS DIX
-IL EST TROIS HEURES MOINS CINQ
-IL EST DIX HEURES MOINS DIX
-IL EST MINUIT
-IL EST MIDI
-
-LISTE MOTS :
-_IL 
-_EST 
-_UNE / _DEUX / _TROIS / _QUARTRE / _CINQ /_SIX / _SEPT / _HUIT / _NEUF / _DIX / _ONZE / _MINUIT / _MIDI
-_HEURE(S)
-_PILE / _MOINS / _ET 
-_LE
-_VINGT 
-_CINQ / DIX / _QUART / DEMI
+Clock Display Hardware Abstraction Layer
 
 Display letters and indexes
 131 ILFESTAMMIDI 120
@@ -58,23 +29,6 @@ Display letters and indexes
 012 .DIX...DEMI. 023
 011 VINGT...CINQ 000
 """
-
-"""
-Clock Display Hardware Abstraction Layer
-
-Display letters and indexes
-131 ITLISASTHPMA 120
-108 ACFIFTEENDCO 119
-107 TWENTYFIVEXW 096
-084 THIRTYXTENXW 095
-083 MINUTESETOUR 072
-060 PASTORUFOURT 071
-059 SEVENXTWELVE 048
-036 NINEFIVECTWO 047
-035 EIGHTFELEVEN 024
-012 SIXTHREEONEG 023
-011 TENSEZOCLOCK 000
-"""
 class ClockDisplayHAL:
     WIDTH = 12
     HEIGHT = 11
@@ -82,30 +36,30 @@ class ClockDisplayHAL:
     xx = 0
 
     WORDS_TO_LEDS = {
-        "DEMI": (xx, xx),
-        "QUART": (xx, xx),
-        "CINQ": (xx, xx),
-        "DIX": (xx, xx),
-        "VINGT": (xx, xx),
-        "ET": (xx, xx),
-        "LE": (xx, xx),
-        "MOINS": (xx, xx),
-        "PILE": (xx, xx),
-        "HEURE": (xx, xx),
-        "HEURES": (xx, xx),
-        "HEURE_1": (xx, xx),
-        "HEURE_2": (xx, xx),
-        "HEURE_3": (xx, xx),
+        "DEMI": (19, 22),
+        "QUART": (25, 29),
+        "CINQ": (0, 3),
+        "DIX": (13, 15),
+        "VINGT": (7, 11),
+        "ET": (31, 32),
+        "LE": (32, 33),
+        "MOINS": (43, 47),
+        "PILE": (32, 35),
+        "HEURE": (36, 40),
+        "HEURES": (36, 41),
+        "HEURE_1": (61, 63),
+        "HEURE_2": (74, 77),
+        "HEURE_3": (84, 88),
         "HEURE_4": (101, 106),
-        "HEURE_5": (xx, xx),
-        "HEURE_6": (xx, xx),
-        "HEURE_7": (xx, xx),
-        "HEURE_8": (xx, xx),
+        "HEURE_5": (92, 95),
+        "HEURE_6": (89, 91),
+        "HEURE_7": (82, 79),
+        "HEURE_8": (49, 52),
         "HEURE_9": (96, 99),
         "HEURE_10": (117, 119),
-        "HEURE_11": (xx, xx),
+        "HEURE_11": (54, 57),
         "MIDI": (120, 123),
-        "MINUIT": (xx, xx),
+        "MINUIT": (65, 70),
         "EST": (126, 128),
         "IL": (130, 131),
     }
