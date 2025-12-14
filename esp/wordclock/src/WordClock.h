@@ -12,6 +12,8 @@ public:
     WordClock(ClockDisplayHAL *clockDisplayHAL, NetworkManager *networkManager, GifPlayer *gifPlayer);
     void setup();
     void displayTime();
+    void showTime(int hour, int minute, bool showRainbow);
+    void showTime(int hour, int minute);
 
 private:
     int lastHour;

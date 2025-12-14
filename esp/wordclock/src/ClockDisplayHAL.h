@@ -14,6 +14,7 @@ public:
     Adafruit_NeoPixel pixels;
     void setup();
     void displayWord(const String &word, uint32_t color);
+    void playRainbow(unsigned long durationMs);
     void setPixel(uint8_t x, uint8_t y, uint32_t color);
     void clearPixels(bool show = true);
     void show();
